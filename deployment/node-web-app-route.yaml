@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: node-web-app-route
+  namespace: argocd
+spec:
+  host: node-web-app.apps.roly-ocp43-cluster.roly-ocp.com
+  to:
+    kind: Service
+    name: node-web-app-service
