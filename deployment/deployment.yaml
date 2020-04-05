@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node_web_app
+  namespace: argocd
+spec:
+  selector:
+    matchLabels:
+      app: node_web_app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: node_web_app
+    spec:
+      containers:
+        - name: node_web_app
+          image: image-registry.openshift-image-registry.svc:5000/argocd/web_node_app
+          ports:
+            - containerPort: 8080
