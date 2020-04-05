@@ -8,3 +8,4 @@ spec:
   to:
     kind: Service
     name: node-web-app-service
+    weight: 100
