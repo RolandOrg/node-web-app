@@ -18,6 +18,6 @@ metadata:
   namespace: argocd
 spec:
   params:
-    - name: url
+    - name: image
       value: 'image-registry.openshift-image-registry.svc:5000/argocd/web_node_app'
   type: image
