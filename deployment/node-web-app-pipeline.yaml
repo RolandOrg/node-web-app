@@ -1,8 +1,6 @@
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  creationTimestamp: '2020-04-05T15:55:15Z'
-  generation: 1
   name: node-web-app-source
   namespace: argocd
 spec:
@@ -16,8 +14,6 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  creationTimestamp: '2020-04-05T16:24:44Z'
-  generation: 7
   name: node-web-app-image
   namespace: argocd
 spec:
