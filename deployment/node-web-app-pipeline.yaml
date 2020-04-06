@@ -33,9 +33,9 @@ spec:
       name: PARAM_NAME
       type: string
   resources:
-    - name: app-source
+    - name: node-web-app-source
       type: git
-    - name: app-image
+    - name: node-web-app-image
       type: image
   tasks:
     - name: build
