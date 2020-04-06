@@ -28,10 +28,6 @@ metadata:
   name: node-web-app-pipeline
   namespace: argocd
 spec:
-  params:
-    - default: defaultValue
-      name: PARAM_NAME
-      type: string
   resources:
     - name: node-web-app-source
       type: git
