@@ -15,7 +15,7 @@ apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
   name: node-web-app-image
-  namespace: argocd
+  namespace: node-web-project
 spec:
   params:
     - name: image
