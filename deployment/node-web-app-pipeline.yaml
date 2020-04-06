@@ -1,28 +1,4 @@
 apiVersion: tekton.dev/v1alpha1
-kind: PipelineResource
-metadata:
-  name: node-web-app-source
-  namespace: argocd
-spec:
-  params:
-    - name: url
-      value: 'https://github.com/RolandOrg/node_web_app.git'
-    - name: revision
-      value: master
-  type: git
----
-apiVersion: tekton.dev/v1alpha1
-kind: PipelineResource
-metadata:
-  name: node-web-app-image
-  namespace: argocd
-spec:
-  params:
-    - name: url
-      value: 'image-registry.openshift-image-registry.svc:5000/argocd/web_node_app'
-  type: image
----
-apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
   name: node-web-app-pipeline
