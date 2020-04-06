@@ -19,5 +19,5 @@ metadata:
 spec:
   params:
     - name: image
-      value: 'image-registry.openshift-image-registry.svc:5000/argocd/web_node_app'
+      value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web_node_app'
   type: image
