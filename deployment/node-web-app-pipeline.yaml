@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: node-web-app-pipeline
+  namespace: argocd
+spec:
+  params:
+    - default: defaultValue
+      name: PARAM_NAME
+      type: string
+  resources:
+    - name: app-source
+      type: git
+    - name: app-image
+      type: image
+  tasks:
+    - name: build
+      params:
+        - name: BUILDER_IMAGE
+          value: 'quay.io/buildah/stable:v1.11.0'
+        - name: DOCKERFILE
+          value: ./Dockerfile
+        - name: TLSVERIFY
+          value: 'false'
+      resources:
+        inputs:
+          - name: source
+            resource: app-source
+        outputs:
+          - name: image
+            resource: app-image
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+    - name: restart-deployment
+      runAfter:
+        - build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
