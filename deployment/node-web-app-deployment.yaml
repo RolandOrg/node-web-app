@@ -17,4 +17,4 @@ spec:
       - name: node-web-app
         image: image-registry.openshift-image-registry.svc:5000/argocd/web_node_app
         ports:
-        - containerPort: 8080 
+        - containerPort: 8080
