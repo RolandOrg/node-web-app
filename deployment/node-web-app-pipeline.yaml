@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
   name: node-web-app-pipeline
-  namespace: argocd
+  namespace: node-web-project
 spec:
   resources:
     - name: node-web-app-source
