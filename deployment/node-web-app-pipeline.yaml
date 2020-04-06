@@ -1,4 +1,32 @@
 apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  creationTimestamp: '2020-04-05T15:55:15Z'
+  generation: 1
+  name: node-web-app-source
+  namespace: argocd
+spec:
+  params:
+    - name: url
+      value: 'https://github.com/RolandOrg/node_web_app.git'
+    - name: revision
+      value: master
+  type: git
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  creationTimestamp: '2020-04-05T16:24:44Z'
+  generation: 7
+  name: node-web-app-image
+  namespace: argocd
+spec:
+  params:
+    - name: url
+      value: 'image-registry.openshift-image-registry.svc:5000/argocd/web_node_app'
+  type: image
+---
+apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
   name: node-web-app-pipeline
@@ -25,10 +53,10 @@ spec:
       resources:
         inputs:
           - name: source
-            resource: app-source
+            resource: node-web-app-source
         outputs:
           - name: image
-            resource: app-image
+            resource: node-web-app-image
       taskRef:
         kind: ClusterTask
         name: buildah
