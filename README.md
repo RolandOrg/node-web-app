@@ -3,6 +3,11 @@
 This is a simple tutorial that helped me get an understanding of Tekton and ArgoCD.  
 
 ### Clone this repo
+`
+git clone https://github.com/RolandOrg/node_web_app.git
+
+cd node_web_app
+`
 
 ### Run Node App and Test Locally with Docker 
 
@@ -20,9 +25,11 @@ Name the Project -> node-web-project
 OR Change all namespaces in the YAML File to match your project  
 
 ### Allow Pipeline to access registry for build and deploy
-- oc policy add-role-to-user registry-editor builder
-- oc policy add-role-to-user registry-editor deployer
+`
+oc policy add-role-to-user registry-editor builder
 
+oc policy add-role-to-user registry-editor deployer
+`
 ### Run Pipeline 
 
 ### Look at app 
