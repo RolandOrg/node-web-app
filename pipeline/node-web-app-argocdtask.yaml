@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-env-configmap
+data:
+  ARGOCD_SERVER: <Argo CD server address>
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-env-secret
+data:
+  # choose one of username/password or auth token
+  ARGOCD_USERNAME: <username>
+  ARGOCD_PASSWORD: <password>
+  ARGOCD_AUTH_TOKEN: <token>
+---
+
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: argocd-pipeline
+spec:
+  tasks:
+    - name: push-to-git
+      taskRef:
+        name: some-git-task # pushes to the Git repository used by the application in the next task
+    - name: sync-application
+      taskRef:
+        name: argocd-task-sync-and-wait
+      params:
+        - name: application-name
+          value: some-application
+  
