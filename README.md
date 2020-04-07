@@ -20,10 +20,13 @@ Name the Project -> node-web-project
 OR Change all namespaces in the YAML File to match your project  
 
 ### Allow Pipeline to access registry for build and deploy
-`
 - oc policy add-role-to-user registry-editor builder
 - oc policy add-role-to-user registry-editor deployer
-`
+
+### Run Pipeline 
+
+### Look at app 
+
 
 
 
