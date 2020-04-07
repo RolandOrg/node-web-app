@@ -32,4 +32,5 @@ spec:
       params:
         - name: application-name
           value: some-application
-  
+        - name: flags
+          value: ""
