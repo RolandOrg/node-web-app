@@ -28,6 +28,14 @@ spec:
       taskRef:
         kind: ClusterTask
         name: buildah
+    - name: apply-manifests
+      taskRef:
+        name: apply-manifests
+      resources:
+        inputs:
+          - name: source
+            resource: node-web-app-source
+      runAfter: build
     - name: argocd-deploy
       params:
         - name: application-name
@@ -37,7 +45,7 @@ spec:
         - name: argocd-version
           value: v1.4.2
       runAfter:
-        - build
+        - apply-manifests
       taskRef:
         kind: Task
         name: argocd-task-sync-and-wait
