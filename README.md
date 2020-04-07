@@ -11,7 +11,7 @@ cd node_web_app
 
 ### Run Node App and Test Locally with Docker 
 
-The Node Applicaiton is pretty created following this tutorial simulating how a new user might learn to containerize a Node App.  
+The Node Applicaiton is created following this tutorial simulating how a new user might learn to containerize a Node App.  
 [Dockerizing a Node.js web app](https://nodejs.org/fr/docs/guides/nodejs-docker-webapp/)
 
 1. To run the applicaiton locally, [Install Docker Desktop](https://www.docker.com/products/docker-desktop) or you could use [podman](https://podman.io/) on Linux (This assumes you use podman CLI instead of docker.  Substitute docker <command> with podman <command>)
