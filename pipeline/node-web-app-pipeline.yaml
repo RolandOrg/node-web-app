@@ -34,6 +34,8 @@ spec:
           value: 'node-web-app'
         - name: flags
           value: "--insecure-skip-server-verification"
+        - name: argocd-version
+          value: v1.4.2
       runAfter:
         - build
       taskRef:
