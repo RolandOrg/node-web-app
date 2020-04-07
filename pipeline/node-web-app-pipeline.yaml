@@ -32,6 +32,8 @@ spec:
       params:
         - name: application-name
           value: 'node-web-app'
+        - name: flags
+          value: --insecure
       runAfter:
         - build
       taskRef:
