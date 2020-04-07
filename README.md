@@ -24,23 +24,23 @@ node server.js
 
 ```
 
-2. Since you have the code, docker build
+3. Since you have the code, docker build
 
 ```
 docker build -t <your username>/node-web-app .
 ```
-3. Run the applicaiton in a container.
+4. Run the applicaiton in a container.
 ```
 docker run -p 49160:8080 -d <your username>/node-web-app
 
 ```
 
-4. Check that the container is running.
+5. Check that the container is running.
 ```
 docker ps
 ```
 
-5. Test the Application 
+6. Test the Application 
 
 ```
 curl -i localhost:49160
