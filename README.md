@@ -48,19 +48,36 @@ curl -i localhost:49160
 
 ```
 
+#### Using OpenShift 4.3 as my Kubernetes Cluster 
 
-#### Install ArgoCD Operator onto OpenShift 
+I [installed OpenShift 4.3 into AWS following these instructions](https://docs.openshift.com/container-platform/4.3/installing/installing_aws/installing-aws-account.html).
+
+You could use [Code Ready Containers](https://cloud.redhat.com/openshift/install/crc/installer-provisioned?intcmp=7013a000002CtetAAC) Locally.  
+
+This tutorial can work also on any Kubernetes, but you have to install Tekton and use the [buildah](https://github.com/tektoncd/catalog/tree/v1beta1/buildah) task.  
+
+#### Install ArgoCD Operator into OpenShift 
+
+For this tutorial I followed [the Console Install](https://argocd-operator.readthedocs.io/en/latest/install/openshift/) using the Argo CD Operator on OpenShift.  
 
 #### Install OpenShift Pipeline Operator 
+
+For this tutorial I follwed the instructions to install the [OpenShift Pipeline Operator](https://openshift.github.io/pipelines-docs/docs/0.10.5/assembly_installing-pipelines.html).
+
+#### Install the Argo CD Tekton Task into the argocd namespace
+
+[Argo CD Tekton Task](https://github.com/tektoncd/catalog/tree/v1beta1/argocd)
+
+#### Create OCP Project 
+Name the Project -> node-web-project
+OR Change all namespaces in the YAML File to match your project 
 
 #### Create App ArgoCD to point to Git Repo 
 
 #### Sync Repo 
 Resources should be created but the deployments fail to start.  
 
-#### Create OCP Project 
-Name the Project -> node-web-project
-OR Change all namespaces in the YAML File to match your project  
+ 
 
 #### Allow Pipeline to access registry for build and deploy
 ```
