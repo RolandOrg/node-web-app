@@ -1,4 +1,5 @@
-# GitOps with Tekton and ArgoCD( Simple Node JS App Soup to Nuts: From DeskTop Docker to OpenShift Cluster )
+# GitOps with Tekton and ArgoCD
+### Simple Node JS App Soup to Nuts: From DeskTop Docker to OpenShift Cluster
 
 This is a simple tutorial that helped me get an understanding of Tekton and ArgoCD.  
 
