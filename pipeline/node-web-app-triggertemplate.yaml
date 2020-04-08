@@ -43,8 +43,6 @@ spec:
   params:
   - name: git-repo-url
     value: node-web-app-source
-  - name: git-repo-name
-    value: node-web-app
   - name: git-revision
     value: HEAD
 
