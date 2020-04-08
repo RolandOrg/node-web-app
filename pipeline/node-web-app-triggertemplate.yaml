@@ -74,7 +74,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: node-web-app
+  name: node-web-app-el
 spec:
   serviceAccountName: pipeline
   triggers:
