@@ -27,9 +27,11 @@ metadata:
 spec:
   params:
   - name: git-repo-url
-    value: node-web-app-source
+    value: $(body.repository.url)
+  - name: git-repo-name
+    value: $(body.repository.name)
   - name: git-revision
-    value: HEAD
+    value: $(body.head_commit.id)
 
 ---
 
