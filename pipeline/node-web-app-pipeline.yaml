@@ -28,16 +28,6 @@ spec:
       taskRef:
         kind: ClusterTask
         name: buildah
-    - name: update-deployment
-      params: 
-      - name: ARGS
-        value: 
-        - 'patch deployment/node-web-project -p {"spec”:{“replicas”:0}}'
-      runAfter: 
-      - build
-      taskRef: 
-        kind: ClusterTask
-        name: openshift-client
     - name: argocd-deploy
       params:
         - name: application-name
