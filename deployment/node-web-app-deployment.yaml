@@ -1,4 +1,4 @@
-apiVersion: apps/v2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: node-web-app-deployment
@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: node-web-app
-        image: image-registry.openshift-image-registry.svc:5000/node-web-project/web_node_app
+        image: image-registry.openshift-image-registry.svc:5000/node-web-project/web_node_app:1.0.0
         ports:
         - containerPort: 8080
