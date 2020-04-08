@@ -33,7 +33,7 @@ spec:
       type: image
       params:
       - name: url
-        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web_node_app:v1.0.2'
+        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:v1.0.3'
 
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
