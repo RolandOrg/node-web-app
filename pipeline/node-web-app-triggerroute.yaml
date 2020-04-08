@@ -7,5 +7,5 @@ spec:
   host: el-node-web-app.apps.roly-ocp43-cluster.roly-ocp.com
   to:
     kind: Service
-    name: el-node-web-app
+    name: el-node-web-app-el
     weight: 100
