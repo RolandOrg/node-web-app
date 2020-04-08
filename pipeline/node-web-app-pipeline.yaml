@@ -10,7 +10,7 @@ spec:
     - name: node-web-app-image
       type: image
   tasks:
-    - name: build
+    - name: build-and-publish-image
       params:
         - name: BUILDER_IMAGE
           value: 'quay.io/buildah/stable:v1.11.0'
@@ -28,7 +28,7 @@ spec:
       taskRef:
         kind: ClusterTask
         name: buildah
-    - name: argocd-deploy
+    - name: argocd-sync-deployment
       params:
         - name: application-name
           value: node-web-app
@@ -37,7 +37,7 @@ spec:
         - name: argocd-version
           value: v1.4.2
       runAfter:
-        - update-deployment
+        - build-and-publish-image
       taskRef:
         kind: Task
         name: argocd-task-sync-and-wait
