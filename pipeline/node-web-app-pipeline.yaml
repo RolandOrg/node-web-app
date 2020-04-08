@@ -35,7 +35,7 @@ spec:
            - "patch"
            - "deployment/node-web-project"
            - "-p"
-           - "'{\"spec\”:{\“replicas\”:0}}’"
+           - '{\"spec\”:{\“replicas\”:0}}’
       runAfter: build
       taskRef:
         kind: ClusterTask
