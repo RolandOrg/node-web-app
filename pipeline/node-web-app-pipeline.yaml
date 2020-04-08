@@ -28,14 +28,18 @@ spec:
       taskRef:
         kind: ClusterTask
         name: buildah
-    - name: apply-manifests
-      taskRef:
-        name: apply-manifests
-      resources:
-        inputs:
-          - name: source
-            resource: node-web-app-source
+    - name: update-deployment
+      params:
+        -name: ARGS
+         value: 
+           - "patch"
+           - "deployment/node-web-project"
+           - "-p"
+           - "'{\"spec\”:{\“replicas\”:0}}’"
       runAfter: build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
     - name: argocd-deploy
       params:
         - name: application-name
@@ -44,8 +48,7 @@ spec:
           value: "--insecure"
         - name: argocd-version
           value: v1.4.2
-      runAfter:
-        - apply-manifests
+      runAfter: update-deployment
       taskRef:
         kind: Task
         name: argocd-task-sync-and-wait
