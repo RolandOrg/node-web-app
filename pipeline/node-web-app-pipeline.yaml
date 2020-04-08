@@ -30,8 +30,8 @@ spec:
         name: buildah
     - name: update-deployment
       params:
-        -name: ARGS
-         value: 
+        - name: ARGS
+          value: 
            - "patch"
            - "deployment/node-web-project"
            - "-p"
