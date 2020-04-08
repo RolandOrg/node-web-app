@@ -32,9 +32,7 @@ spec:
       params: 
       - name: ARGS
         value: 
-        - patch
-        - deployment/node-web-project
-        - " -p {\"spec”:{“replicas”:0}} "
+        - 'patch deployment/node-web-project -p {"spec”:{“replicas”:0}}'
       runAfter: 
       - build
       taskRef: 
