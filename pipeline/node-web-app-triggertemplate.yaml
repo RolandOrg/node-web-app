@@ -13,27 +13,6 @@ spec:
     description: The name of the deployment to be created / patched
 
   resourcetemplates:
-  - apiVersion: tekton.dev/v1alpha1
-    kind: PipelineResource
-    metadata:
-      name: $(params.git-repo-name)-git-repo-$(uid)
-    spec:
-      type: git
-      params:
-      - name: revision
-        value: $(params.git-revision)
-      - name: url
-        value: $(params.git-repo-url)
-
-  - apiVersion: tekton.dev/v1alpha1
-    kind: PipelineResource
-    metadata:
-      name: $(params.git-repo-name)-image-$(uid)
-    spec:
-      type: image
-      params:
-      - name: url
-        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:v1.0.3'
 
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
