@@ -3,35 +3,20 @@ kind: TriggerTemplate
 metadata:
   name: node-web-app-tt
 spec:
-  params:
-  - name: git-repo-url
-    description: The git repository url
-  - name: git-revision
-    description: The git revision
-    default: master
-  - name: git-repo-name
-    description: The name of the deployment to be created / patched
-
   resourcetemplates:
-
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      name: build-deploy-$(params.git-repo-name)-$(uid)
+      name: node-web-app-pipeline-run
     spec:
-      serviceAccountName: pipeline
-      pipelineRef:
-        name: node-web-app-pipeline
       resources:
-      - name: git-repo
-        resourceRef:
-          name: node-web-app-source
-      - name: image
-        resourceRef:
-          name: node-web-app-image
-      params:
-      - name: deployment-name
-        value: node-web-app-source
+    - name: node-web-app-source
+      resourceRef:
+        name: node-web-app-source
+    - name: node-web-app-image
+      resourceRef:
+        name: node-web-app-image
+      serviceAccountName: pipeline
 
 --- 
 
@@ -41,7 +26,7 @@ metadata:
   name: node-web-app-tb
 spec:
   params:
-  - name: git-repo-url
+  - name: node-web-app-source
     value: node-web-app-source
   - name: git-revision
     value: HEAD
