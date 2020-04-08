@@ -10,12 +10,12 @@ spec:
       name: node-web-app-pipeline-run
     spec:
       resources:
-    - name: node-web-app-source
-      resourceRef:
-        name: node-web-app-source
-    - name: node-web-app-image
-      resourceRef:
-        name: node-web-app-image
+      - name: node-web-app-source
+        resourceRef:
+          name: node-web-app-source
+      - name: node-web-app-image
+        resourceRef:
+          name: node-web-app-image
       serviceAccountName: pipeline
 
 --- 
@@ -26,7 +26,7 @@ metadata:
   name: node-web-app-tb
 spec:
   params:
-  - name: node-web-app-source
+  - name: git-repo-url
     value: node-web-app-source
   - name: git-revision
     value: HEAD
