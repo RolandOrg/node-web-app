@@ -42,7 +42,7 @@ spec:
     spec:
       serviceAccountName: pipeline
       pipelineRef:
-        name: build-and-deploy
+        name: node-web-app-pipeline
       resources:
       - name: git-repo
         resourceRef:
@@ -63,11 +63,11 @@ metadata:
 spec:
   params:
   - name: git-repo-url
-    value: $(body.repository.url)
+    value: node-web-app-source
   - name: git-repo-name
-    value: $(body.repository.name)
+    value: node-web-app
   - name: git-revision
-    value: $(body.head_commit.id)
+    value: HEAD
 
 ---
 
