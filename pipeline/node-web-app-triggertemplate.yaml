@@ -9,6 +9,8 @@ spec:
     metadata:
       name: node-web-app-pipeline-run
     spec:
+      pipelineRef:
+        name: node-web-app-pipeline
       resources:
       - name: node-web-app-source
         resourceRef:
