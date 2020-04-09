@@ -7,7 +7,7 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      generateName: simple-pipeline-run-
+      generateName: node-web-app-pipeline
     spec:
       pipelineRef:
         name: node-web-app-pipeline
