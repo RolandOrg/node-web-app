@@ -9,10 +9,6 @@ spec:
       type: git
     - name: node-web-app-image
       type: image
-  params:
-    - name: imageTag
-      description: "Image Tag"
-      default: "latest"
   tasks:
     - name: build-and-publish-image
       params:
@@ -28,7 +24,7 @@ spec:
             resource: node-web-app-source
         outputs:
           - name: image
-            resource: node-web-app-image:$(inputs.params.imageTag)
+            resource: node-web-app-image
       taskRef:
         kind: ClusterTask
         name: buildah

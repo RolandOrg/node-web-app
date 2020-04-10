@@ -19,5 +19,5 @@ metadata:
 spec:
   params:
     - name: url
-      value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app'
+      value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:latest'
   type: image
