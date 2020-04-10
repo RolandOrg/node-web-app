@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: node-web-app
+        version: 1.0.1
     spec:
       containers:
       - name: node-web-app
