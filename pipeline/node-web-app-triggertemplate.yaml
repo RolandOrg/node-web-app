@@ -33,7 +33,6 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
-      metadata:
       generateName: node-web-app-pipeline-run-resource-
       namespace: node-web-project
     spec:
