@@ -12,16 +12,18 @@ spec:
     spec:
       pipelineRef:
         name: node-web-app-pipeline
-      params:
+      resources:
       - name: node-web-app-source
-        value: ${params.git-repo-url}
+        resourceRef:
+          name: node-web-app-source-dynamic
       - name: node-web-app-image
-        value: ${params.container-image}
+        resourceRef:
+          name: node-web-app-image-dynamic
       serviceAccountName: pipeline
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
-      generateName: node-web-app-pipeline-run-resource-
+      name: node-web-app-source-dynamic
       namespace: node-web-project
     spec:
       params:
@@ -33,7 +35,7 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
-      generateName: node-web-app-pipeline-run-resource-
+      name: node-web-app-image-dynamic
       namespace: node-web-project
     spec:
       params:
