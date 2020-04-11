@@ -13,9 +13,9 @@ spec:
         name: node-web-app-pipeline
       params:
       - name: node-web-app-source
-        value: ${params:git-repo-url}
+        value: ${params.git-repo-url}
       - name: node-web-app-image
-        value: ${container-image}
+        value: ${params.container-image}
       serviceAccountName: pipeline
 
 --- 
