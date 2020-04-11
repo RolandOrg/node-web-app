@@ -11,11 +11,11 @@ spec:
     spec:
       pipelineRef:
         name: node-web-app-pipeline
-      resources:
+      params:
       - name: node-web-app-source
-        value: $(params.git-repo-url)
+        value: ${params:git-repo-url}
       - name: node-web-app-image
-        value: $(params.git-revision)
+        value: ${container-image}
       serviceAccountName: pipeline
 
 --- 
@@ -28,9 +28,7 @@ spec:
   params:
   - name: git-repo-url
     value: $(body.repository.url)
-  - name: git-repo-name
-    value: $(body.repository.name)
-  - name: git-revision
+  - name: container-image
     value: image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:$(body.head_commit.id)
 
 ---
