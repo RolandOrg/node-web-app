@@ -4,7 +4,7 @@ metadata:
   name: node-web-app-pipeline
   namespace: node-web-project
 spec:
-  params:
+  resources:
     - name: node-web-app-source
       type: git
     - name: node-web-app-image
@@ -21,10 +21,10 @@ spec:
       resources:
         inputs:
           - name: source
-            value: node-web-app-source
+            resource: node-web-app-source
         outputs:
           - name: image
-            value: node-web-app-image
+            resource: node-web-app-image
       taskRef:
         kind: ClusterTask
         name: buildah
