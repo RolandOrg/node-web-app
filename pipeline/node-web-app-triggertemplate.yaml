@@ -5,22 +5,6 @@ metadata:
 spec:
   resourcetemplates:
   - apiVersion: tekton.dev/v1alpha1
-    kind: PipelineRun
-    metadata:
-      generateName: node-web-app-pipeline-run-
-      namespace: node-web-project
-    spec:
-      pipelineRef:
-        name: node-web-app-pipeline
-      resources:
-      - name: node-web-app-source
-        resourceRef:
-          name: node-web-app-source-dynamic
-      - name: node-web-app-image
-        resourceRef:
-          name: node-web-app-image-dynamic
-      serviceAccountName: pipeline
-  - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
       name: node-web-app-source-dynamic
@@ -42,6 +26,22 @@ spec:
       - name: url
         value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:(params.git-revision)'
     type: image
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineRun
+    metadata:
+      generateName: node-web-app-pipeline-run-
+      namespace: node-web-project
+    spec:
+      pipelineRef:
+        name: node-web-app-pipeline
+      resources:
+      - name: node-web-app-source
+        resourceRef:
+          name: node-web-app-source-dynamic
+      - name: node-web-app-image
+        resourceRef:
+          name: node-web-app-image-dynamic
+      serviceAccountName: pipeline
 
 
 --- 
