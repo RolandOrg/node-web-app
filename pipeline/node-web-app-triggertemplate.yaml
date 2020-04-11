@@ -7,17 +7,15 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
-      generateName: node-web-app-pipelinerun-
+      generateName: node-web-app-pipeline-run-
     spec:
       pipelineRef:
         name: node-web-app-pipeline
       resources:
       - name: node-web-app-source
-        resourceRef:
-          name: node-web-app-source
+        value: $(params.git-repo-url)
       - name: node-web-app-image
-        resourceRef:
-          name: node-web-app-image
+        value: $(params.git-revision)
       serviceAccountName: pipeline
 
 --- 
@@ -33,7 +31,7 @@ spec:
   - name: git-repo-name
     value: $(body.repository.name)
   - name: git-revision
-    value: $(body.head_commit.id)
+    value: image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:$(body.head_commit.id)
 
 ---
 
@@ -48,3 +46,17 @@ spec:
     - name: node-web-app-tb
     template:
       name: node-web-app-tt
+
+---
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: el-node-web-app
+  namespace: node-web-project
+spec:
+  host: el-node-web-app.apps.roly-ocp43-cluster.roly-ocp.com
+  to:
+    kind: Service
+    name: el-node-web-app-el
+    weight: 100
