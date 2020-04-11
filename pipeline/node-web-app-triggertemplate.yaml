@@ -8,6 +8,7 @@ spec:
     kind: PipelineRun
     metadata:
       generateName: node-web-app-pipeline-run-
+      namespace: node-web-project
     spec:
       pipelineRef:
         name: node-web-app-pipeline
@@ -17,6 +18,30 @@ spec:
       - name: node-web-app-image
         value: ${params.container-image}
       serviceAccountName: pipeline
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      generateName: node-web-app-pipeline-run-resource-
+      namespace: node-web-project
+    spec:
+      params:
+      - name: url
+        value: ${params.git-repo-url}
+      - name: revision
+        value: ${params.git-revision}
+    type: git
+  - apiVersion: tekton.dev/v1alpha1
+    kind: PipelineResource
+    metadata:
+      metadata:
+      generateName: node-web-app-pipeline-run-resource-
+      namespace: node-web-project
+    spec:
+      params:
+      - name: url
+        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:(params.git-revision)'
+    type: image
+
 
 --- 
 
@@ -28,8 +53,8 @@ spec:
   params:
   - name: git-repo-url
     value: $(body.repository.url)
-  - name: container-image
-    value: image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:$(body.head_commit.id)
+  - name: git-revision
+    value: $(body.head_commit.id)
 
 ---
 
