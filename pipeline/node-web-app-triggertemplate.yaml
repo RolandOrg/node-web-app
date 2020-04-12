@@ -12,7 +12,7 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
-      name: node-web-app-source
+      name: node-web-app-source-$(params.git-repo-name)-$(uid)
       namespace: node-web-project
     spec:
       params:
@@ -26,7 +26,7 @@ spec:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
-      name: node-web-app-image-
+      name: node-web-app-image-$(params.git-repo-name)-$(uid)
       namespace: node-web-project
     spec:
       params:
@@ -44,10 +44,10 @@ spec:
       resources:
       - name: node-web-app-source
         resourceRef:
-          name: node-web-app-source
+          name: node-web-app-source-$(params.git-repo-name)-$(uid)
       - name: node-web-app-image
         resourceRef:
-          name: node-web-app-image
+          name: node-web-app-image-$(params.git-repo-name)-$(uid)
       serviceAccountName: pipeline
 
 
