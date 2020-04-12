@@ -3,6 +3,11 @@ kind: TriggerTemplate
 metadata:
   name: node-web-app-tt
 spec:
+  params: 
+  - name: git-repo-url
+    default: master
+  - name: git-repo-name
+  - name: git-revision
   resourcetemplates:
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
@@ -12,19 +17,21 @@ spec:
     spec:
       params:
       - name: url
-        value: ${params.git-repo-url}
+        value: $(params.git-repo-url)
       - name: revision
-        value: ${params.git-revision}
+        value: $(params.git-revision)
+      - name: git-repo-name
+        value: $(params.git-repo-name)
       type: git
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
-      name: node-web-app-image
+      name: node-web-app-image-
       namespace: node-web-project
     spec:
       params:
       - name: url
-        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:(params.git-revision)'
+        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:$(params.git-revision)'
       type: image
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
@@ -56,6 +63,8 @@ spec:
     value: $(body.repository.url)
   - name: git-revision
     value: $(body.head_commit.id)
+  - name: git-repo-name
+    value: $(body.repository.name)
 
 ---
 
