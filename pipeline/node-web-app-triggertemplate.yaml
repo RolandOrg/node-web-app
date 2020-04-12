@@ -15,7 +15,7 @@ spec:
         value: ${params.git-repo-url}
       - name: revision
         value: ${params.git-revision}
-        type: git
+      type: git
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineResource
     metadata:
@@ -25,7 +25,7 @@ spec:
       params:
       - name: url
         value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:(params.git-revision)'
-        type: image
+      type: image
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
     metadata:
