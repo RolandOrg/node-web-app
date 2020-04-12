@@ -3,14 +3,25 @@
 
 This is a simple tutorial that helped me get an understanding of Tekton and ArgoCD.  
 
-#### Clone this repo
+#### Create a Fork of this Repo for your own fun.
+
+
+1. Since you are running a GitOps Example, you want to create a fork of this repo into your own git-repo
+
+![alt fork-repo](images/fork-repo.png)
+
+2. Select your user 
+
+![alt fork-repo-2](images/fork-repo-2.png)
+
+3. You want to create a Clone of your new repo
 ```
-git clone https://github.com/RolandOrg/node_web_app.git
+git clone https://github.com/<your-user>/node_web_app.git
 
 cd node_web_app
 ```
 
-#### Run Node App and Test Locally with Docker 
+#### Run Node App and Test Locally with Docker or Podman 
 
 The Node Applicaiton is created following this tutorial simulating how a new user might learn to containerize a Node App.  
 [Dockerizing a Node.js web app](https://nodejs.org/fr/docs/guides/nodejs-docker-webapp/)
@@ -25,11 +36,18 @@ node server.js
 
 ```
 
+
+
 3. Since you have the code, docker build
+
+
 
 ```
 docker build -t <your username>/node-web-app .
 ```
+If you want to use podman locally, follow directions [here](https://developers.redhat.com/blog/2019/09/13/develop-with-node-js-in-a-container-on-red-hat-enterprise-linux/) to build with buildah.
+
+
 4. Run the applicaiton in a container.
 ```
 docker run -p 49160:8080 -d <your username>/node-web-app
@@ -47,8 +65,15 @@ docker ps
 curl -i localhost:49160
 
 ```
+#### Change Pipeline Resource to your git repo.
+
+This change is required to run a build from the console without a Trigger Event.  
+
+![alt fork-repo](images/pipeline-resource-fork.png)
 
 #### Using OpenShift 4.3 as my Kubernetes Cluster 
+
+You need your own 4.3 OpenShift Cluster.  Here are some options.  
 
 I [installed OpenShift 4.3 into AWS following these instructions](https://docs.openshift.com/container-platform/4.3/installing/installing_aws/installing-aws-account.html).
 
@@ -72,19 +97,28 @@ For this tutorial I follwed the instructions to install the [OpenShift Pipeline 
 Name the Project -> node-web-project
 OR Change all namespaces in the YAML File to match your project 
 
-#### Create App ArgoCD to point to Git Repo 
-
-#### Sync Repo 
-Resources should be created but the deployments fail to start.  
-
- 
-
 #### Allow Pipeline to access registry for build and deploy
 ```
 oc policy add-role-to-user registry-editor builder
 
 oc policy add-role-to-user registry-editor deployer
 ```
+
+#### Create App ArgoCD to point to Git Repo 
+
+You need to create 2 applications in Argo.  One to synchronize the Tekton Pipleines and the other for the web app itself.  
+
+![alt argo-pipeline](images/argo-node-web-pipeline.png)
+
+
+![alt argo-web-app](images/argo-node-web-app.png)
+
+Create Webhook in Git.  
+
+#### Sync Repo 
+Resources should be created but the deployments fail to start.  
+
+
 
 #### Run Pipeline 
 
