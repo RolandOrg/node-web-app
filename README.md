@@ -15,10 +15,10 @@ This is a simple tutorial that helped me get an understanding of Tekton and Argo
     ![alt fork-repo-2](images/fork-repo-2.png)
 
 3. You want to create a Clone of your new repo
-```
-git clone https://github.com/<your-user>/node_web_app.git
+```console
+ git clone https://github.com/<your-user>/node_web_app.git
 
-cd node_web_app
+ cd node_web_app
 ```
 
 ### Run Node App and Test Locally with Docker or Podman 
@@ -79,25 +79,54 @@ I [installed OpenShift 4.3 into AWS following these instructions](https://docs.o
 
 You could use [Code Ready Containers](https://cloud.redhat.com/openshift/install/crc/installer-provisioned?intcmp=7013a000002CtetAAC) Locally.  
 
-This tutorial can work also on any Kubernetes, but you have to install Tekton and use the [buildah](https://github.com/tektoncd/catalog/tree/v1beta1/buildah) task.  
+This tutorial can work also on any Kubernetes, but you have to install Tekton and use the [buildah](https://github.com/tektoncd/catalog/tree/v1beta1/buildah) task. 
+
+### Needed CLI and log into OpenShift
+
+You need the following CLI's 
+
+- [kuberenetes](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [oc](https://docs.openshift.com/container-platform/4.3/cli_reference/openshift_cli/getting-started-cli.html#installing-the-cli)
+- [tkn](https://openshift.github.io/pipelines-docs/docs/0.10.5/assembly_cli-reference.html)
+- [argocd](https://argoproj.github.io/argo-cd/cli_installation/)
+
+
+[Log into your OpenShift Cluster](https://docs.openshift.com/container-platform/4.3/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands) should automatically log you into kubernetes and tekton.  
+
+```
+oc login --server=https://<OCP API Server>  --token=<Your Auth Token>
+```
+Your ID should use an ID with admin access since you will be installing a set of tools.  
+
+You can also log into your OpenShift web console.  
+
 
 ### Install ArgoCD Operator into OpenShift 
 
-For this tutorial I followed [the Console Install](https://argocd-operator.readthedocs.io/en/latest/install/openshift/) using the Argo CD Operator on OpenShift.  
+There are a few ways to install argocd into a Kubernetes Cluster.  We used the Argo CD Operator.  
+
+For this tutorial, I used [the Console Install](https://argocd-operator.readthedocs.io/en/latest/install/openshift/) using the Argo CD Operator on OpenShift.  
 
 ### Install OpenShift Pipeline Operator 
+
+OpenShift delivers a preview of tekton through the OpenShift Pipeline Operator.  We used the OpenShift Pipeline Operator.  
 
 For this tutorial I follwed the instructions to install the [OpenShift Pipeline Operator](https://openshift.github.io/pipelines-docs/docs/0.10.5/assembly_installing-pipelines.html).
 
 ### Install the Argo CD Tekton Task into the argocd namespace
 
-[Argo CD Tekton Task](https://github.com/tektoncd/catalog/tree/v1beta1/argocd)
+After tekton builds the application and pushed the container image into the Image Repository, tekton needs to trigger a new OpenShift Deployment.  There is a special task that allows Tekton to trigger a argocd sync.  You have to install the [Argo CD Tekton Task](https://github.com/tektoncd/catalog/tree/v1beta1/argocd)
 
 ### Create OCP Project 
-Name the Project -> node-web-project
-OR Change all namespaces in the YAML File to match your project 
+You need to create an OpenShift project called node-web-project or you will need to change all namespaces in the YAML File to match your project 
+
+```
+oc new-project node-web-project
+```
 
 ### Allow Pipeline to access registry for build and deploy
+Your project will need the ability to publish and pull from the image repository.  
+
 ```
 oc policy add-role-to-user registry-editor builder
 
