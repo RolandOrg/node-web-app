@@ -8,11 +8,11 @@ This is a simple tutorial that helped me get an understanding of Tekton and Argo
 
 1. Since you are running a GitOps Example, you want to create a fork of this repo into your own git-repo
 
-![alt fork-repo](images/fork-repo.png)
+    ![alt fork-repo](images/fork-repo.png)
 
 2. Select your user 
 
-![alt fork-repo-2](images/fork-repo-2.png)
+    ![alt fork-repo-2](images/fork-repo-2.png)
 
 3. You want to create a Clone of your new repo
 ```
@@ -103,6 +103,24 @@ oc policy add-role-to-user registry-editor builder
 
 oc policy add-role-to-user registry-editor deployer
 ```
+
+### Update argocd secret.
+
+![alt argo-secret](images/argosecret.png)
+
+There is a file caled node-web-app-argocdsecret.template.  Create a copy of that file as yaml.
+
+```
+cd pipeline
+cp node-web-app-argocdsecret.template  node-web-app-argocdsecret.yaml
+```
+CAUTION !!!!! the .gitigonore file contains the name of this yaml file to avoid checkin of your credentials.  If you use another name, then you must make sure you DO NOT CHECKIN credentials.  
+
+![alt git-ignore](images/gitignore.png)
+
+In the newly created file, replace the value for ARGOCD_SERVER to your server.  Either enter your ARGOCD_AUTH_TOKEN or User and Password Base 64 encoded.  
+
+![alt argo-secret](images/argosecret.png)
 
 ### Create and configure ArgoCD App for Tekton Resources 
 
