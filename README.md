@@ -151,6 +151,10 @@ In the newly created file, replace the value for ARGOCD_SERVER to your server.  
 
 ![alt argo-secret](images/argosecret.png)
 
+### Examime Pipeline
+[node-web-app-pipeline-resources](pipeline/node-web-app-pipeline-resources)
+
+
 ### Create and configure ArgoCD App for Tekton Resources 
 
 We can use argocd to deploy the tekton build for the app.  IN a real project, having your pipeline in a separate repo might be better.  [You can create an argo cd app via the GUI or commandline](https://argoproj.github.io/argo-cd/getting_started/).   
