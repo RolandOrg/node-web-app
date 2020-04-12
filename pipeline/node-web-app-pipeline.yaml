@@ -5,9 +5,9 @@ metadata:
   namespace: node-web-project
 spec:
   resources:
-    - name: node-web-app-source
+    - name: default-node-web-app-source
       type: git
-    - name: node-web-app-image
+    - name: default-node-web-app-image
       type: image
   tasks:
     - name: build-and-publish-image
@@ -21,10 +21,10 @@ spec:
       resources:
         inputs:
           - name: source
-            resource: node-web-app-source
+            resource: default-node-web-app-source
         outputs:
           - name: image
-            resource: node-web-app-image
+            resource: default-node-web-app-image
       taskRef:
         kind: ClusterTask
         name: buildah

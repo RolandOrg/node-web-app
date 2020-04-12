@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: node-web-app-source
+  name: default-node-web-app-source
   namespace: node-web-project
 spec:
   params:
@@ -14,7 +14,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: node-web-app-image
+  name: default-node-web-app-image
   namespace: node-web-project
 spec:
   params:
