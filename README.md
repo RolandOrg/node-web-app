@@ -104,14 +104,30 @@ oc policy add-role-to-user registry-editor builder
 oc policy add-role-to-user registry-editor deployer
 ```
 
-### Create App ArgoCD to point to Git Repo 
+### Create and configure ArgoCD App for Tekton Resources 
 
-You need to create 2 applications in Argo.  One to synchronize the Tekton Pipleines and the other for the web app itself.  
+We can use argocd to deploy the tekton build for the app.  IN a real project, having your pipeline in a separate repo might be better.  [You can create an argo cd app via the GUI or commandline](https://argoproj.github.io/argo-cd/getting_started/).   
+
+The screenshot below shows the parameters I entered.  You need to use your own forked git repo.  
 
 ![alt argo-pipeline](images/argo-node-web-pipeline.png)
 
+- Project: default
+- cluster: (URL Of your OpenShift Cluster)
+- namespace should be the name of your OpenShift Project
+- Targer Revision: Head
+- PATH: pipeline
+- AutoSync Enabled.  
 
-![alt argo-web-app](images/argo-node-web-app.png)
+Once you run sync, your pipeline should be deployed and your screen in argo should look like below.  
+
+![alt argo-pipeline](images/argocd-tekton-pipeline.png)
+
+
+### Create ArgoCD App for Web App Resources 
+
+
+![alt argo-pipeline](images/argo-node-web-app.png)
 
 Create Webhook in Git.  
 
