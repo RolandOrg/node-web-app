@@ -1,9 +1,9 @@
 # GitOps with Tekton and ArgoCD
-### Simple Node JS App Soup to Nuts: From DeskTop Docker to OpenShift Cluster
+## Simple Node JS App Soup to Nuts: From DeskTop Docker to OpenShift Cluster
 
 This is a simple tutorial that helped me get an understanding of Tekton and ArgoCD.  
 
-#### Create a Fork of this Repo for your own fun.
+### Create a Fork of this Repo for your own fun.
 
 
 1. Since you are running a GitOps Example, you want to create a fork of this repo into your own git-repo
@@ -21,7 +21,7 @@ git clone https://github.com/<your-user>/node_web_app.git
 cd node_web_app
 ```
 
-#### Run Node App and Test Locally with Docker or Podman 
+### Run Node App and Test Locally with Docker or Podman 
 
 The Node Applicaiton is created following this tutorial simulating how a new user might learn to containerize a Node App.  
 [Dockerizing a Node.js web app](https://nodejs.org/fr/docs/guides/nodejs-docker-webapp/)
@@ -65,13 +65,13 @@ docker ps
 curl -i localhost:49160
 
 ```
-#### Change Pipeline Resource to your git repo.
+### Change Pipeline Resource to your git repo.
 
 This change is required to run a build from the console without a Trigger Event.  
 
 ![alt fork-repo](images/pipeline-resource-fork.png)
 
-#### Using OpenShift 4.3 as my Kubernetes Cluster 
+### Using OpenShift 4.3 as my Kubernetes Cluster 
 
 You need your own 4.3 OpenShift Cluster.  Here are some options.  
 
@@ -81,30 +81,30 @@ You could use [Code Ready Containers](https://cloud.redhat.com/openshift/install
 
 This tutorial can work also on any Kubernetes, but you have to install Tekton and use the [buildah](https://github.com/tektoncd/catalog/tree/v1beta1/buildah) task.  
 
-#### Install ArgoCD Operator into OpenShift 
+### Install ArgoCD Operator into OpenShift 
 
 For this tutorial I followed [the Console Install](https://argocd-operator.readthedocs.io/en/latest/install/openshift/) using the Argo CD Operator on OpenShift.  
 
-#### Install OpenShift Pipeline Operator 
+### Install OpenShift Pipeline Operator 
 
 For this tutorial I follwed the instructions to install the [OpenShift Pipeline Operator](https://openshift.github.io/pipelines-docs/docs/0.10.5/assembly_installing-pipelines.html).
 
-#### Install the Argo CD Tekton Task into the argocd namespace
+### Install the Argo CD Tekton Task into the argocd namespace
 
 [Argo CD Tekton Task](https://github.com/tektoncd/catalog/tree/v1beta1/argocd)
 
-#### Create OCP Project 
+### Create OCP Project 
 Name the Project -> node-web-project
 OR Change all namespaces in the YAML File to match your project 
 
-#### Allow Pipeline to access registry for build and deploy
+### Allow Pipeline to access registry for build and deploy
 ```
 oc policy add-role-to-user registry-editor builder
 
 oc policy add-role-to-user registry-editor deployer
 ```
 
-#### Create App ArgoCD to point to Git Repo 
+### Create App ArgoCD to point to Git Repo 
 
 You need to create 2 applications in Argo.  One to synchronize the Tekton Pipleines and the other for the web app itself.  
 
@@ -115,14 +115,14 @@ You need to create 2 applications in Argo.  One to synchronize the Tekton Piplei
 
 Create Webhook in Git.  
 
-#### Sync Repo 
+### Sync Repo 
 Resources should be created but the deployments fail to start.  
 
 
 
-#### Run Pipeline 
+### Run Pipeline 
 
-#### Look at app 
+### Look at app 
 
 
 
