@@ -289,4 +289,66 @@ You will now need to configure 2 WebHooks.
 
 
 
+1. Make a change to the deployment YAML.
+
+    ![alt change-deployment](images/deployment-change.png)
+
+2. Make a change to the Node JS Code.  
+
+
+    ![alt webhooks](images/changecode.png)
+
+3. Push the changes to your repo
+
+```
+
+git add .
+git commit -m "First Deployment"
+git push
+
+```
+
+    In a real deployment, you might have many webhooks.  git push can be build to dev while a git tag can be a build for test.  
+
+
+3. Go to the OpenShift Console and you should see a pipleine run kickoff.  Wait till it is complete.  Notice the name of the pipleine run matches that in the tigger template.
+
+    ![alt webhooks](images/gittrigger.png)
+
+4. While waiting for the build, go to pipeline resources section and look to see new pipeline resources created for the webhook build.  It will dynamically create a resource for build so you know what parameters were used to run the build.  
+
+    ![alt resourcebuild](images/pipelineresourcebuild.png)
+
+
+5. Go back to the Pipeline Runs and check that the build is complete.  
+
+
+    ![alt success](images/pipelinesuccess.png)
+
+
+6. Go to the Topology view on the Developer Side and launch the app as shown.
+
+
+    ![alt success](images/LaunchApp.png)
+
+
+7.  If it all works out, your app should look like this
+
+
+
+
+This completes loading the solution.
+
+
+#### Troubleshooting
+
+- argocd runs in an argocd namespace.  Yourtekton pipleine runs in your app namespace.  
+
+- using tkn log <resource> intance to see tekton activity
+
+- oc logs <resource> for various pods
+
+- Redeploying TriggerTemplate does not cause the Event App to restart.  Delete pod to run new instance.  
+
+
 
