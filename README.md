@@ -151,8 +151,28 @@ In the newly created file, replace the value for ARGOCD_SERVER to your server.  
 
 ![alt argo-secret](images/argosecret.png)
 
-### Examime Pipeline
-[node-web-app-pipeline-resources](pipeline/node-web-app-pipeline-resources)
+### Examime Pipeline YAML
+
+Examine the Tekton Files.  A Quick summary of Tekton Resources can be read [here](https://openshift.github.io/pipelines-docs/docs/0.10.5/con_pipelines-concepts.html).  You already saw one of the YAML files to configure the secret. 
+
+[node-web-app-pipeline-resources.yaml](pipeline/node-web-app-pipeline-resources.yaml): [Pipeline Resources](https://github.com/tektoncd/pipeline/blob/master/docs/resources.md) configured for the pipeline.  There are 2, the name of the git repository and the name of the Container Image using the Internal Red Hat Registry.  Note, the resources here allow us to do a Pipeline Run fomr the console or oc commandline.  It hard codes default values.  They will be overridden by Trigger Template when builds are done via a git push.  
+
+[node-web-app-pipeline.yaml](pipeline/node-web-app-pipeline.yaml): Our [Pipeline](https://github.com/tektoncd/pipeline/blob/master/docs/pipelines.md) for building, publishng, and deploying our Node App.  There are 2 [Tasks](https://github.com/tektoncd/pipeline/blob/master/docs/tasks.md).  We make use of some default tasks rather than creating our own.  A real life pipeline will execute tests, tag images, and so forth.  Tasks:
+
+- the build-and-publish-image uses the ClusterTask buildah (podman build system).  
+- argocd-sync-deployment uses the argocd Task we installed earlier
+
+[node-web-app-triggertemplate.yaml](pipeline/node-web-app-triggertemplate.yaml):  Now that the pipeline is setup, there are several resources created in this file.  They create the needed resources for triggering builds from an external source, in our case a Git webhook.  [You can learn more about Tekton Triggers here](https://github.com/tektoncd/triggers).  We have created the following.  
+
+- A TriggerTemplate is used to create a template of the same pipeline resources, but dynamically genertaed to not hard code image name or source.  It also creates a PipelineRun Template that will be created when a build is triggered. 
+
+- A TriggerBining that binds the incoming event data to the template (this will populte things like git repo name, revision,etc....)
+
+- An EventListener that will create a pod application bringing together a binding and a template.  
+
+- An OpenShift Route to expose the Event Listener.  Your will create a GIT Webhook that will callback this Route.  
+
+You can learn about [Tekton Resources](https://github.com/tektoncd/pipeline/tree/master/docs#learn-more) and [OpenShift Pipleines](https://openshift.github.io/pipelines-docs/docs/0.10.5/con_pipelines-concepts.html)
 
 
 ### Create and configure ArgoCD App for Tekton Resources 
@@ -161,7 +181,7 @@ We can use argocd to deploy the tekton build for the app.  IN a real project, ha
 
 The screenshot below shows the parameters I entered.  You need to use your own forked git repo.  
 
-![alt argo-pipeline](images/argo-node-web-pipeline.png)
+![alt argo-pipeline](images/argo-node-web-pipeline.png) 
 
 - Project: default
 - cluster: (URL Of your OpenShift Cluster)
@@ -174,22 +194,56 @@ Once you run sync, your pipeline should be deployed and your screen in argo shou
 
 ![alt argo-pipeline](images/argocd-tekton-pipeline.png)
 
+### Run a Build
+
+At this point you can run a build.  The Build Should succeed, but the deploy should fail.  If you configure the deployment first however, deloyment will fail to start because the image has not been published.  
+
+1. You can go into the Pipelines section of the OpenShift Console, right click the pipeline and click Start.
+
+![alt kickoff](images/kickoffbuild.png)
+
+2. You will see that the values are prepopulated with default PipelineResources as shown below.  
+
+
+![alt default-resources](images/PipelineDefaultResouces.png)
+
+3. The pipeline should run, the build should pass (Creates the Container Image and publishes it to the Container Registry).  The argo-cd sync should fail because we have not configured the argod app for deploying the node-web-project.  
+
+
+![alt first-run](images/FirstRun.png)
+
+
+### Examine Application 
+
+Let's look at the OpenShift Configuration for our node application.
+
+[alt deployment](images/deployment.png)
+
+- [node-webapp-deployment.yaml](node-webapp-deployment.yaml) - This represents our Kubernetes Deployment.  
+
 
 ### Create ArgoCD App for Web App Resources 
 
 
 ![alt argo-pipeline](images/argo-node-web-app.png)
 
-Create Webhook in Git.  
+
+![alt node-flow](images/argocd-node-flow.png)
+
+
 
 ### Sync Repo 
-Resources should be created but the deployments fail to start.  
+Resources   
 
 
 
 ### Run Pipeline 
 
-### Look at app 
+### Configure Webhooks 
+
+Create Webhook in Git.  
+
+### Make a code change and commit, look at build.   
 
 
 
