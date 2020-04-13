@@ -217,24 +217,41 @@ At this point you can run a build.  The Build Should succeed, but the deploy sho
 
 Let's look at the OpenShift Configuration for our node application.
 
-[alt deployment](images/deployment.png)
+![alt deployment](images/deployment.png)
 
-- [node-webapp-deployment.yaml](node-webapp-deployment.yaml) - This represents our Kubernetes Deployment.  
+- [node-web-app-deployment.yaml](deployment/node-web-app-deployment.yaml) - This represents our Kubernetes Deployment. 
+
+- [node-web-app-service.yaml](deployment/node-web-app-service.yaml):  This expose the node app to the cluster.
+
+- [node-web-app-route.yaml](deployment/node-web-app-route.yaml): Exposes an OpenShift Route so you can access Node App from outside the cluster
 
 
 ### Create ArgoCD App for Web App Resources 
 
+Just like we used argocd to deploy the tekton pipeline, you will create another argocd app that corresponds to the deployment.   [You can create an argo cd app via the GUI or commandline](https://argoproj.github.io/argo-cd/getting_started/).   
+
+The screenshot below shows the parameters I entered.  You need to use your own forked git repo.  
 
 ![alt argo-pipeline](images/argo-node-web-app.png)
 
+- Project: default
+- cluster: (URL Of your OpenShift Cluster)
+- namespace should be the name of your OpenShift Project
+- repo url: should be your forked git repo.  
+- Targer Revision: Head
+- PATH: deployment
+- AutoSync Disabled.  
 
-![alt node-flow](images/argocd-node-flow.png)
+
+
+
 
 
 
 ### Sync Repo 
-Resources   
+From here, you can trigger a sync manually by clicking sync.  Once your resources are deployed, your build from earlier is complete.  The screen should look like the figure below.  
 
+![alt node-flow](images/argocd-node-flow.png)
 
 
 ### Run Pipeline 
