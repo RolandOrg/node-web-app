@@ -256,9 +256,34 @@ From here, you can trigger a sync manually by clicking sync.  Once your resource
 
 ### Run Pipeline 
 
+1. You can go into the Pipelines section of the OpenShift Console, right click the pipeline and click Start.
+
+![alt kickoff](images/kickoffbuild.png)
+
+2. You will see that the values are prepopulated with default PipelineResources as shown below.  
+
+
+![alt default-resources](images/PipelineDefaultResouces.png)
+
+3. The pipeline should run, should now complete.  
+
+![alt build-success](images/BuildSuccess.png)
+
+
 ### Configure Webhooks 
 
-Create Webhook in Git.  
+You will now need to configure 2 WebHooks.  
+
+![alt webhooks](images/webhooks.png)
+
+1. One WebHook will be configured to our argocd pipeline app.  This will enabled you to push changes to your pipeline plus for argocd to detect changes for your app (though autosync is not on)
+
+    ![alt webhooks](images/argowebhook.png)
+
+
+2. One webhook will go to your Tekton Event Listener to start a tekton build from git push
+
+    ![alt webhooks](images/tekton-webhook.png)
 
 ### Make a code change and commit, look at build.   
 
