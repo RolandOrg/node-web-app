@@ -31,7 +31,7 @@ spec:
     spec:
       params:
       - name: url
-        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:$(params.git-revision)'
+        value: 'image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:latest'
       type: image
   - apiVersion: tekton.dev/v1alpha1
     kind: PipelineRun
